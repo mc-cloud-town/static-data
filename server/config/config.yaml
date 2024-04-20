@@ -1,0 +1,11 @@
+api:
+  address: 0.0.0.0:8080
+  allow_origins:
+    - '*'
+  member_file: data/data/members.yaml
+cache:
+  root: ./data/cache
+  uuid_file: uuid.json
+log:
+  root: DEBUG
+  with_color: true
