@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"net/http"
 	"os"
@@ -15,6 +16,8 @@ import (
 	log "github.com/sirupsen/logrus"
 	"k8s.io/apimachinery/pkg/util/yaml"
 )
+
+const DEFAULT_UUID = "00000000000000000000000000000000"
 
 type WhitelistStruct struct {
 	Whitelist map[string][]string `json:"whitelist"`
@@ -113,7 +116,7 @@ type OnlineUUIDStruct struct {
 }
 
 func fetchOnlineUUIDs(names []string) map[string]string {
-	result := make(map[string]string)
+	result := map[string]string{}
 	var wg sync.WaitGroup
 	var mu sync.Mutex
 
@@ -125,27 +128,63 @@ func fetchOnlineUUIDs(names []string) map[string]string {
 		}
 
 		wg.Add(1)
+		getOne := func(name string) error {
+			resp, err := http.Get("https://api.mojang.com/users/profiles/minecraft/" + name)
+			if err != nil {
+				return err
+			}
+			defer resp.Body.Close()
+
+			body, err := io.ReadAll(resp.Body)
+			if err != nil {
+				return err
+			}
+
+			onlineUUID := OnlineUUIDStruct{}
+			if err := json.Unmarshal(body, &onlineUUID); err != nil {
+				return err
+			}
+
+			mu.Lock()
+			defer mu.Unlock()
+			result[onlineUUID.Name] = onlineUUID.ID
+
+			return nil
+		}
+		getOnes := func(name ...string) {
+			for _, n := range name {
+				if err := getOne(n); err != nil {
+					result[n] = DEFAULT_UUID
+					log.WithError(err).Error(fmt.Sprintf("Failed to get the UUID of %s", n))
+				}
+			}
+		}
+
 		go func(start, end int) {
 			defer wg.Done()
 
-			nameString, err := json.Marshal(names[start:end])
+			sliceNames := names[start:end]
+			nameString, err := json.Marshal(sliceNames)
 			if err != nil {
 				return
 			}
 
 			resp, err := http.Post("https://api.mojang.com/profiles/minecraft", "application/json", bytes.NewBuffer(nameString))
 			if err != nil {
+				getOnes(sliceNames...)
 				return
 			}
 			defer resp.Body.Close()
 
 			body, err := io.ReadAll(resp.Body)
 			if err != nil {
+				getOnes(sliceNames...)
 				return
 			}
 
 			onlineUUID := []OnlineUUIDStruct{}
 			if err := json.Unmarshal(body, &onlineUUID); err != nil {
+				getOnes(sliceNames...)
 				return
 			}
 
