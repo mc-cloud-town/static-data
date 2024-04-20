@@ -16,6 +16,10 @@ env:
 
 jobs:
   build:
+    defaults:
+      run:
+        working-directory: ./server
+
     runs-on: ubuntu-latest
     permissions:
       contents: read
