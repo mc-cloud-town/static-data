@@ -15,6 +15,5 @@ RUN apk --no-cache add ca-certificates
 COPY --from=build /app/start server
 
 EXPOSE 8080
-VOLUME ["./data"]
 
 CMD ["./server"]
