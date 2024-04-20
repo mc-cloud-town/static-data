@@ -157,7 +157,9 @@ func fetchOnlineUUIDs(names []string) map[string]string {
 		getOnes := func(name ...string) {
 			for _, n := range name {
 				if err := getOne(n); err != nil {
+					mu.Lock()
 					result[n] = DEFAULT_UUID
+					mu.Unlock()
 					log.WithError(err).Error(fmt.Sprintf("Failed to get the UUID of %s", n))
 				}
 			}
