@@ -215,7 +215,7 @@ func convertToAPIStruct(whitelist WhitelistStruct, uuidCache map[string]string) 
 	for group, members := range whitelist.Whitelist {
 		for _, member := range members {
 			apiMember := APIMemberStruct{Name: member}
-			if uuid, ok := uuidCache[member]; ok {
+			if uuid, ok := uuidCache[member]; ok && uuid != "" && uuid != DEFAULT_UUID {
 				apiMember.UUID = uuid
 			}
 			apiWhitelist[group] = append(apiWhitelist[group], apiMember)
