@@ -14,10 +14,6 @@ env:
   # github.repository as <account>/<repo>
   IMAGE_NAME: ${{ github.repository }}
 
-defaults:
-  run:
-    working-directory: ./server
-
 jobs:
   build:
     runs-on: ubuntu-latest
