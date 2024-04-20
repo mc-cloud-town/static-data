@@ -25,7 +25,7 @@ import (
 func main() {
 	CONFIG_PATH := os.Getenv("CONFIG_PATH")
 	if CONFIG_PATH == "" {
-		CONFIG_PATH = "data/config.yaml"
+		CONFIG_PATH = "data/api/config.yaml"
 	}
 	if err := config.SetupGlobalConfig(CONFIG_PATH); err != nil {
 		log.Fatal(err)

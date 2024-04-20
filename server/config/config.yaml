@@ -4,7 +4,7 @@ api:
     - '*'
   member_file: data/data/members.yaml
 cache:
-  root: ./data/cache
+  root: ./data/api/cache
   uuid_file: uuid.json
 log:
   root: DEBUG
