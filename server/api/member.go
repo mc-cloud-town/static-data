@@ -147,6 +147,9 @@ func fetchOnlineUUIDs(names []string) map[string]string {
 
 			mu.Lock()
 			defer mu.Unlock()
+			if onlineUUID.ID != name {
+				result[name] = DEFAULT_UUID
+			}
 			result[onlineUUID.Name] = onlineUUID.ID
 
 			return nil
@@ -166,6 +169,7 @@ func fetchOnlineUUIDs(names []string) map[string]string {
 			sliceNames := names[start:end]
 			nameString, err := json.Marshal(sliceNames)
 			if err != nil {
+				getOnes(sliceNames...)
 				return
 			}
 
@@ -184,6 +188,12 @@ func fetchOnlineUUIDs(names []string) map[string]string {
 
 			onlineUUID := []OnlineUUIDStruct{}
 			if err := json.Unmarshal(body, &onlineUUID); err != nil {
+				getOnes(sliceNames...)
+				return
+			}
+
+			// Check if the length is equal
+			if len(onlineUUID) != len(sliceNames) {
 				getOnes(sliceNames...)
 				return
 			}
