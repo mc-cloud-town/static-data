@@ -33,6 +33,8 @@ jobs:
 
       - name: Sync
         run: python scripts/summon.py
+        env:
+          MEMBERS_API_URL: ${{ github.env.MEMBERS_API_URL }}
 
       # - name: deploy
       #   run: |
