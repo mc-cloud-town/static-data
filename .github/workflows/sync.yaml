@@ -34,7 +34,7 @@ jobs:
       - name: Sync
         run: python scripts/summon.py
         env:
-          BASE_API_URL: ${{ github.env.BASE_API_URL }}
+          BASE_API_URL: ${{ secrets.BASE_API_URL }}
 
       # - name: deploy
       #   run: |
