@@ -1,6 +1,10 @@
+import os
 import yaml
 import aiohttp
 import asyncio
+
+BASE_API_URL = os.getenv("BASE_API_URL", "https://example.com/api")
+MEMBERS_API_URL = f"{BASE_API_URL}/members"
 
 
 async def fetch(s: aiohttp.ClientSession, url: str) -> dict:
