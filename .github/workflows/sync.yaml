@@ -11,6 +11,9 @@ on:
       - .github/**
       - '!.github/workflows/**'
 
+  schedule:
+    - cron: '0 0 * * *'
+
 permissions:
   contents: read
   pages: write
