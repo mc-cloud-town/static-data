@@ -24,9 +24,9 @@ type WhitelistStruct struct {
 }
 
 type APIMemberStruct struct {
-	UUID         string `json:"uuid"`         // The uuid of the member.
-	Name         string `json:"name"`         // The name of the member.
-	Introduction string `json:"introduction"` // The introduction of the member.
+	UUID         string `json:"uuid"`                   // The uuid of the member.
+	Name         string `json:"name"`                   // The name of the member.
+	Introduction string `json:"introduction,omitempty"` // The introduction of the member.
 }
 
 // map[groups]APIMemberStruct
