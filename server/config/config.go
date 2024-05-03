@@ -21,6 +21,7 @@ type Config struct {
 		Address      string   `yaml:"address"`
 		AllowOrigins []string `yaml:"allow_origins"`
 		MemberFile   string   `yaml:"member_file"`
+		JwtExpireDay int      `yaml:"jwt_expire_day"`
 	} `yaml:"api"`
 	Cache struct {
 		Root     string `yaml:"root"`
