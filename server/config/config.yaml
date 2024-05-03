@@ -3,6 +3,7 @@ api:
   allow_origins:
     - '*'
   member_file: data/data/members.yaml
+  jwt_expire_day: 7
 cache:
   root: ./data/api/cache
   uuid_file: uuid.json

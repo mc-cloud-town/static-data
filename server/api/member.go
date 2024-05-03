@@ -115,6 +115,26 @@ type OnlineUUIDStruct struct {
 	Name string `json:"name"`
 }
 
+func getOne(name string) (onlineUUID *OnlineUUIDStruct, err error) {
+	resp, err := http.Get("https://api.mojang.com/users/profiles/minecraft/" + name)
+	if err != nil {
+		return
+	}
+	defer resp.Body.Close()
+
+	body, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return
+	}
+
+	fmt.Println(string(body))
+	if err = json.Unmarshal(body, onlineUUID); err != nil {
+		return
+	}
+
+	return
+}
+
 func fetchOnlineUUIDs(names []string) map[string]string {
 	result := map[string]string{}
 	var wg sync.WaitGroup
@@ -128,39 +148,22 @@ func fetchOnlineUUIDs(names []string) map[string]string {
 		}
 
 		wg.Add(1)
-		getOne := func(name string) error {
-			resp, err := http.Get("https://api.mojang.com/users/profiles/minecraft/" + name)
-			if err != nil {
-				return err
-			}
-			defer resp.Body.Close()
-
-			body, err := io.ReadAll(resp.Body)
-			if err != nil {
-				return err
-			}
-
-			onlineUUID := OnlineUUIDStruct{}
-			if err := json.Unmarshal(body, &onlineUUID); err != nil {
-				return err
-			}
-
-			mu.Lock()
-			defer mu.Unlock()
-			if onlineUUID.ID != name {
-				result[name] = DEFAULT_UUID
-			}
-			result[onlineUUID.Name] = onlineUUID.ID
-
-			return nil
-		}
-		getOnes := func(name ...string) {
-			for _, n := range name {
-				if err := getOne(n); err != nil {
+		getOnes := func(names ...string) {
+			for _, name := range names {
+				if onlineUUID, err := getOne(name); err != nil {
+					if errors.Is(err, os.ErrNotExist) {
+						log.WithError(err).Error(fmt.Sprintf("Failed to find online UUID of %s", name))
+						continue
+					}
+					log.WithError(err).Error(fmt.Sprintf("Failed to get the UUID of %s", name))
+				} else {
 					mu.Lock()
-					result[n] = DEFAULT_UUID
+					if onlineUUID.ID != name {
+						result[name] = DEFAULT_UUID
+						log.Warn(fmt.Sprintf("Member ID error, get %s but real is %s", name, onlineUUID.ID))
+					}
+					result[onlineUUID.Name] = onlineUUID.ID
 					mu.Unlock()
-					log.WithError(err).Error(fmt.Sprintf("Failed to get the UUID of %s", n))
 				}
 			}
 		}
