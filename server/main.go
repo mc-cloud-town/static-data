@@ -22,7 +22,15 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
+// GIT_COMMIT and GIT_BRANCH are set by the build script
+var (
+	GIT_BRANCH string = "-"
+	GIT_COMMIT string = "0000000"
+)
+
 func main() {
+	fmt.Printf("Server Version: %s (%s)\n", GIT_BRANCH, GIT_COMMIT)
+
 	CONFIG_PATH := os.Getenv("CONFIG_PATH")
 	if CONFIG_PATH == "" {
 		CONFIG_PATH = "data/api/config.yaml"

@@ -78,7 +78,9 @@ jobs:
           cache-to: type=local,dest=/tmp/.buildx-cache-new
           # linux/386,linux/amd64,linux/arm/v7,linux/arm64/v8
           platforms: linux/amd64
-          build-args: GIT_COMMIT=${{ github.sha }}
+          build-args: |
+            GIT_COMMIT=${{ github.sha }}
+            GIT_BRANCH=${{ github.ref }}
 
       - name: Move cache
         run: |
