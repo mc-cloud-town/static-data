@@ -6,6 +6,7 @@ import (
 	"errors"
 	"io"
 	"net/http"
+	"sync"
 )
 
 type OnlineUUIDStruct struct {
@@ -33,7 +34,7 @@ func GetMinecraftInfoFromName(name string) (*OnlineUUIDStruct, error) {
 	return &onlineUUID, nil
 }
 
-func getMinecraftInfosFrom10Names(names []string) (*[]OnlineUUIDStruct, error) {
+func GetMinecraftInfosFrom10Names(names []string) (*[]OnlineUUIDStruct, error) {
 	size := len(names)
 	if size > 10 {
 		return nil, errors.New("Too many names")
@@ -67,82 +68,39 @@ func getMinecraftInfosFrom10Names(names []string) (*[]OnlineUUIDStruct, error) {
 	return &result, nil
 }
 
-func GetMinecraftInfosFromNames(names ...string) ([]*OnlineUUIDStruct, error) {
+func GetMinecraftInfosFromNames(names ...string) *[]OnlineUUIDStruct {
 	results := []OnlineUUIDStruct{}
 	max := len(names)
-	for i := 0; i < max; i += 10 {
-		end := i + 10
-		if end > max {
-			end = max
-		}
-
+	mu, wg := sync.Mutex{}, &sync.WaitGroup{}
+	for i := 0; i <= max; i += 10 {
+		end := min(i+10, max)
 		sliceNames := names[i:end]
-		result, err := getMinecraftInfosFrom10Names(sliceNames)
-		if err != nil {
-			continue
-		}
+		go func(names []string) {
+			defer wg.Done()
 
-		results = append(results, *result...)
+			result, err := GetMinecraftInfosFrom10Names(names)
+			if err == nil {
+				mu.Lock()
+				results = append(results, *result...)
+				mu.Unlock()
+				return
+			}
+
+			for _, name := range names {
+				go func(name string) {
+					defer wg.Done()
+					info, _ := GetMinecraftInfoFromName(name)
+					if info != nil {
+						mu.Lock()
+						results = append(results, *info)
+						mu.Unlock()
+					}
+				}(name)
+				wg.Add(1)
+			}
+		}(sliceNames)
+		wg.Add(1)
 	}
-	// if err != nil {
-	// 	getOnes(sliceNames...)
-	// 	return
-	// }
-	// defer resp.Body.Close()
-
-	// body, err := io.ReadAll(resp.Body)
-	// if err != nil {
-	// 	getOnes(sliceNames...)
-	// 	return
-	// }
-
-	// onlineUUID := []OnlineUUIDStruct{}
-	// if err := json.Unmarshal(body, &onlineUUID); err != nil {
-	// 	getOnes(sliceNames...)
-	// 	return
-	// }
-	return nil, nil
-
-	// go func(start, end int) {
-	// 	defer wg.Done()
-
-	// 	sliceNames := names[start:end]
-	// 	nameString, err := json.Marshal(sliceNames)
-	// 	if err != nil {
-	// 		getOnes(sliceNames...)
-	// 		return
-	// 	}
-
-	// 	resp, err := http.Post("https://api.mojang.com/profiles/minecraft", "application/json", bytes.NewBuffer(nameString))
-	// 	if err != nil {
-	// 		getOnes(sliceNames...)
-	// 		return
-	// 	}
-	// 	defer resp.Body.Close()
-
-	// 	body, err := io.ReadAll(resp.Body)
-	// 	if err != nil {
-	// 		getOnes(sliceNames...)
-	// 		return
-	// 	}
-
-	// 	onlineUUID := []OnlineUUIDStruct{}
-	// 	if err := json.Unmarshal(body, &onlineUUID); err != nil {
-	// 		getOnes(sliceNames...)
-	// 		return
-	// 	}
-
-	// 	// Check if the length is equal
-	// 	if len(onlineUUID) != len(sliceNames) {
-	// 		getOnes(sliceNames...)
-	// 		return
-	// 	}
-
-	// 	mu.Lock()
-	// 	defer mu.Unlock()
-	// 	for _, u := range onlineUUID {
-	// 		result[u.Name] = u.ID
-	// 	}
-	// }(i, end)
-
+	wg.Wait()
+	return &results
 }
