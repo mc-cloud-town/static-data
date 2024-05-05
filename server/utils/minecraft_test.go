@@ -27,8 +27,7 @@ func TestGetMinecraftInfoFromName(t *testing.T) {
 	}
 }
 
-func TestGetMinecraftInfosFrom10Names(t *testing.T) {
-	// test 1.
+func TestGetMinecraftInfosFrom10Names_1(t *testing.T) {
 	names := []string{
 		"Steve", "Alex", "Noor", "Sunny", "Ari",
 		"Zuri", "Makena", "Kai", "Efe",
@@ -54,10 +53,11 @@ func TestGetMinecraftInfosFrom10Names(t *testing.T) {
 			t.Errorf("Expected %v, got nil", diff)
 		}
 	}
+}
 
-	// test 2.
-	names = []string{"-test", "+test"}
-	infos, err = GetMinecraftInfosFrom10Names(names)
+func TestGetMinecraftInfosFrom10Names_2(t *testing.T) {
+	names := []string{"-test", "+test"}
+	_, err := GetMinecraftInfosFrom10Names(names)
 	if err != nil {
 		t.Error(err)
 	}
