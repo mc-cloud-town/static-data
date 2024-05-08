@@ -1,6 +1,8 @@
 package api
 
-import "github.com/gin-gonic/gin"
+import (
+	"github.com/gin-gonic/gin"
+)
 
 func RegisterRoutes(router *gin.Engine) {
 	api := router.Group("/api")
@@ -9,4 +11,6 @@ func RegisterRoutes(router *gin.Engine) {
 	})
 
 	api.GET("/members", HandlerGetWhitelistMembers)
+
+	RegisterOauth2(api.Group("/oauth2"))
 }
