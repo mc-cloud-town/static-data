@@ -11,6 +11,8 @@ import (
 	"runtime"
 	"server/api"
 	"server/config"
+	"server/mode"
+	"server/model"
 	"server/utils"
 	"strings"
 	"syscall"
@@ -24,12 +26,23 @@ import (
 
 // GIT_COMMIT and GIT_BRANCH are set by the build script
 var (
-	GIT_BRANCH string = "-"
-	GIT_COMMIT string = "0000000"
+	VERSION      = "unknown"
+	GIT_COMMIT   = "unknown"
+	BUILD_DATE   = "unknown"
+	DEFAULT_MODE = mode.Dev
 )
 
 func main() {
-	fmt.Printf("Server Version: %s (%s)\n", GIT_BRANCH, GIT_COMMIT)
+	versionInfo := model.VersionInfo{
+		Commit:    GIT_COMMIT,
+		Version:   VERSION,
+		BuildDate: BUILD_DATE,
+	}
+
+	fmt.Printf("Server Version %s-%s@%s\n", versionInfo.Version, versionInfo.Commit, versionInfo.BuildDate)
+	mode.SetDefaultMode(DEFAULT_MODE)
+	mode.Set(os.Getenv("MODE"))
+	fmt.Println("Server Running Mode:", mode.Get())
 
 	CONFIG_PATH := os.Getenv("CONFIG_PATH")
 	if CONFIG_PATH == "" {

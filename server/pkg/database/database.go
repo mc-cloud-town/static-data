@@ -11,6 +11,6 @@ type Model struct {
 	UpdatedAt time.Time `json:"updated_at,omitempty"`
 }
 
-func (m *Model) IDtoString() string {
+func (m *Model) StringID() string {
 	return strconv.Itoa(int(m.ID))
 }
