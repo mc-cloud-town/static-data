@@ -1,6 +1,6 @@
 [
   {
-    "title": "雲鎮工藝出生點-恐懼",
+    "title": "Cloud Town Exquisite Craft Spawn Point - Fear",
     "imageUrl": "architectureCollection/spawn.webp",
     "date": "2024-03-17",
     "galleryImagesUrl": [
@@ -15,10 +15,10 @@
         "url": "https://twitter.com/EtymologyGhost"
       }
     ],
-    "tags": ["建築", "雕塑", "海怪", "克拉肯", "建模"]
+    "tags": ["Architecture", "Sculpture", "Sea Monster", "Kraken", "Modeling"]
   },
   {
-    "title": "雲鎮工藝出生點-冰船賽道",
+    "title": "Cloud Town Exquisite Craft - Ice Boat Track",
     "imageUrl": "architectureCollection/ice_boat.webp",
     "date": "2024-03-03",
     "downloadUrl": "",
@@ -30,9 +30,9 @@
     ],
     "credits": [
       {
-        "name": "XiaoYu2021 - 渲染圖片"
+        "name": "XiaoYu2021 - Rendered Image"
       }
     ],
-    "tags": ["建築", "冰船賽道", "聖誕節"]
+    "tags": ["Architecture", "Ice Boat Track", "Christmas"]
   }
 ]

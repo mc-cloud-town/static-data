@@ -1,6 +1,6 @@
 [
   {
-    "title": "雲鎮工藝出生點-恐懼",
+    "title": "云镇工艺出生点-恐惧",
     "imageUrl": "architectureCollection/spawn.webp",
     "date": "2024-03-17",
     "galleryImagesUrl": [
@@ -15,10 +15,10 @@
         "url": "https://twitter.com/EtymologyGhost"
       }
     ],
-    "tags": ["建築", "雕塑", "海怪", "克拉肯", "建模"]
+    "tags": ["建筑", "雕塑", "海怪", "克拉肯", "建模"]
   },
   {
-    "title": "雲鎮工藝出生點-冰船賽道",
+    "title": "云镇工艺-冰船赛道",
     "imageUrl": "architectureCollection/ice_boat.webp",
     "date": "2024-03-03",
     "downloadUrl": "",
@@ -30,9 +30,9 @@
     ],
     "credits": [
       {
-        "name": "XiaoYu2021 - 渲染圖片"
+        "name": "XiaoYu2021 - 渲染图片"
       }
     ],
-    "tags": ["建築", "冰船賽道", "聖誕節"]
+    "tags": ["建筑", "冰船赛道", "圣诞节"]
   }
 ]
