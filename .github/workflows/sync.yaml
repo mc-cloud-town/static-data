@@ -38,6 +38,7 @@ jobs:
         run: |
           mkdir output
           cp -r data/* output
+          cp -r assets/* output
 
       - name: Sync
         run: python scripts/summon.py
