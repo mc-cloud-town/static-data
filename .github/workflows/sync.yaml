@@ -34,8 +34,10 @@ jobs:
       - name: Install dependencies
         run: pip install -r scripts/requirements.txt
 
-      - name: Copy
-        run: cp -r data/* output
+      - name: Copy Static Data
+        run: |
+          mkdir output
+          cp -r data/* output
 
       - name: Sync
         run: python scripts/summon.py
