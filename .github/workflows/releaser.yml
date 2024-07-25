@@ -3,11 +3,9 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
-    paths-ignore:
-      - README.md
-      - .github/**
-      - '!.github/workflows/**'
     paths:
+      - '!README.md'
+      - '.github/workflows/releaser.yml'
       - server/**
 
 env:
