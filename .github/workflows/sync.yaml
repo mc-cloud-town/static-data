@@ -39,7 +39,8 @@ jobs:
           mkdir output
           cp -r data/* output
           cp -r assets/* output
-          ln -s output/zh_TW output/zh
+          mkdir zh
+          cp -r output/zh_TW/* output/zh
 
       - name: Sync
         run: python scripts/summon.py
