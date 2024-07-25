@@ -39,7 +39,7 @@ jobs:
           mkdir output
           cp -r data/* output
           cp -r assets/* output
-          mkdir zh
+          mkdir output/zh
           cp -r output/zh_TW/* output/zh
 
       - name: Sync
