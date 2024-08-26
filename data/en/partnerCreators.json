@@ -107,11 +107,45 @@
     "Partner": "杯子蛋糕實驗室",
     "Image": "partner/杯子蛋糕實驗室.jpg",
     "ModalTitle": "杯子蛋糕實驗室",
-    "Introduce": "為什麼現實生活中這麼多電影才會出現的情節？",
+    "Introduce": "在其他地方看不到的遊戲評論",
     "ShowVideo": "https://www.youtube.com/embed/9W3QmzUZB8w?si=7txPXTR0PQuhavrR",
     "Link": {
       "youtube": "https://www.youtube.com/@cupcake_exe",
       "discord": "https://discord.gg/6tcBKBF5Rj"
+    }
+  },
+  {
+    "Partner": "Zonzer 送神",
+    "Image": "partner/送神.jpg",
+    "ModalTitle": "送神",
+    "Introduce": [
+      "麥塊說書人。",
+      "",
+      "嗨路過的人你好",
+      "我是 Zonzer，也可以叫我送神",
+      "有時會發一些沒什麼營養的片",
+      "所以為什麼你會點進來看這個奇怪的頻道"
+    ],
+    "ShowVideo": "https://www.youtube.com/watch?v=_BSWpM2z71I",
+    "Link": {
+      "youtube": "https://www.youtube.com/@Zonzer",
+      "instagram": "https://www.instagram.com/zonzzer/",
+      "tiktok": "https://www.tiktok.com/@zonzer"
+    }
+  },
+  {
+    "Partner": "三尾木木犬",
+    "Image": "partner/三尾木木犬.jpg",
+    "ModalTitle": "三尾木木犬",
+    "Introduce": "目前不會每天發片，但每周還是會探個幾次頭！歡迎常常來嚕嚕狗（？）",
+    "Link": {
+      "youtube": "https://www.youtube.com/@puppy910240",
+      "discord": "https://discord.gg/hkGCT5AxVv",
+      "facebook": "https://www.facebook.com/ThreeTailPuppy",
+      "instagram": "https://www.instagram.com/julius_cyuan/",
+      "twitter": "https://twitter.com/puppy910240",
+      "twitch": "https://twitch.tv/dai_cyuan",
+      "other": "https://www.plurk.com/puppy910240"
     }
   }
 ]
