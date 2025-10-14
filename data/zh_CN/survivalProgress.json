@@ -246,7 +246,17 @@
   },
   {
     "imageUrl": "survivalProgress/p50.webp",
+    "title": "2024/10/31",
+    "subTitle": "南瓜灯怪物"
+  },
+  {
+    "imageUrl": "survivalProgress/p51.webp",
     "title": "2025/02/11",
     "subTitle": "刷花机（地狱）"
+  },
+  {
+    "imageUrl": "survivalProgress/p52.webp",
+    "title": "2025/08/18",
+    "subTitle": "1.12.2 中的违禁方块计画"
   }
 ]

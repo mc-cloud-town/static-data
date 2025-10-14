@@ -223,11 +223,12 @@
     "imageUrl": "survivalProgress/p45.webp",
     "title": "2024/05/16",
     "subTitle": "Glow Squid Farm"
-  },{
-  "imageUrl": "survivalProgress/p46.webp",
-  "title": "2024/05/21",
-  "subTitle": "Shuriken Farm"
-},
+  },
+  {
+    "imageUrl": "survivalProgress/p46.webp",
+    "title": "2024/05/21",
+    "subTitle": "Shuriken Farm"
+  },
   {
     "imageUrl": "survivalProgress/p47.webp",
     "title": "2024/06/03",
@@ -245,7 +246,17 @@
   },
   {
     "imageUrl": "survivalProgress/p50.webp",
+    "title": "2024/10/31",
+    "subTitle": "Pumpkin Lantern Mobs"
+  },
+  {
+    "imageUrl": "survivalProgress/p51.webp",
     "title": "2025/02/11",
     "subTitle": "Flower Farm (Nether)"
+  },
+  {
+    "imageUrl": "survivalProgress/p52.webp",
+    "title": "2025/08/18",
+    "subTitle": "1.12.2 Illegal Block Project"
   }
 ]
